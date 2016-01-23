@@ -1,0 +1,15 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible',content='IE=edge')
+        meta(name='viewport',content='width=device-width, initial-scale=1')
+        block head-content
+        link(rel='icon',href='favicon.ico',type='image/x-icon')
+        link(rel='stylesheet',href='css/app.css',type='text/css')
+    body
+        include ../_partials/_header
+        block content
+        include ../_partials/_footer
+        script(src='scripts/vendor.js')
+        block script
