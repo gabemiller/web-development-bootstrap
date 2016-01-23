@@ -3244,8 +3244,3 @@ input[type="button"].btn-block {
 @media print {
   .hidden-print {
     display: none !important; } }
-
-/**
- * Created by Gabor Molnar
- * 2016.01.23.
- */

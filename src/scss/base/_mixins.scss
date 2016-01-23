@@ -1,8 +1,3 @@
-/**
- * Created by Gabor Molnar
- * 2016.01.23.
- */
-
 // Add background image easily
 @mixin background-image($url,$size:cover,$repeat:no-repeat,$position:center,$color:transparent){
   background-image: url($url);

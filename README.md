@@ -7,7 +7,7 @@ It is created for adding boost for web development and giving you fresh, quick s
 
 1. Download this project
 ```shell
-git clone https://...
+git clone https://github.com/gabemiller/web-development-bootstrap.git
 ```
 2. (**Required**) If you don't have node.js on your platform, just install it before.
 Get it from here: https://nodejs.org/
