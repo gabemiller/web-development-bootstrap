@@ -5,7 +5,8 @@ It is created for adding boost for web development and giving you fresh, quick s
 
 ## How to use
 
-1. Download this project
+1. Download this project:
+
     ```shell
     git clone https://github.com/gabemiller/web-development-bootstrap.git
     ```
