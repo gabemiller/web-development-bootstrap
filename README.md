@@ -6,33 +6,33 @@ It is created for adding boost for web development and giving you fresh, quick s
 ## How to use
 
 1. Download this project
-```shell
-git clone https://github.com/gabemiller/web-development-bootstrap.git
-```
+    ```shell
+    git clone https://github.com/gabemiller/web-development-bootstrap.git
+    ```
 2. (**Required**) If you don't have node.js on your platform, just install it before.
 Get it from here: https://nodejs.org/
 
 3. Get the node.js dependencies.
-```shell
-npm install --save-dev
-```
+    ```shell
+    npm install --save-dev
+    ```
 
 4. (**Required**) If you don't have bower, just install it with npm.
 More info: http://bower.io/
-```shell
-npm install -g bower
-```
+    ```shell
+    npm install -g bower
+    ```
 
 5. Get the bower dependencies.
-```shell
-bower install
-```
+    ```shell
+    bower install
+    ```
 
 6. Of course, you can add or remove npm and bower dependencies.
-```shell
-npm install --save-dev [package-name]
-bower install [--save] [package-name]
-```
+    ```shell
+    npm install --save-dev [package-name]
+    bower install [--save] [package-name]
+    ```
 
 ## What does it have
 
