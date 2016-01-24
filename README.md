@@ -1,6 +1,6 @@
 # Web development bootstrap
 
-This a skeleton, boilerplate, bootstrap or call you what you want project.
+This is a skeleton, boilerplate, bootstrap or call you what you want project.
 It is created for adding boost for web development and giving you fresh, quick start.
 
 ## How to use
