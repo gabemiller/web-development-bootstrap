@@ -29,7 +29,7 @@ More info: http://bower.io/
     bower install
     ```
 
-6. Of course, you can add or remove npm and bower dependencies.
+6. (**Optional**) Of course, you can add or remove npm and bower dependencies.
     ```shell
     npm install --save-dev [package-name]
     bower install [--save] [package-name]
