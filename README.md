@@ -15,7 +15,7 @@ Get it from here: https://nodejs.org/
 
 3. Get the node.js dependencies.
     ```shell
-    npm install --save-dev
+    npm install 
     ```
 
 4. (**Required**) If you don't have bower, just install it with npm.
