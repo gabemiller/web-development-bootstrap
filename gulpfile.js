@@ -15,9 +15,12 @@ var prettify = require('gulp-prettify');
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var Imagemin = require('imagemin');
 var rimraf = require('gulp-rimraf');
 var connect = require('gulp-connect');
+var gifsicle = require('imagemin-gifsicle');
+var jpegtran = require('imagemin-jpegtran');
+var optipng = require('imagemin-optipng');
+var svgo = require('imagemin-svgo');
 
 /**
  * Gulp Task
@@ -92,14 +95,12 @@ gulp.task("scripts", function () {
  * Optimize assets in src/assets and copy them to dist/assets
  */
 gulp.task('assets-optimize', function () {
-    new Imagemin()
-        .src('./src/assets/*.{gif,jpg,png,svg}')
-        .dest('./dist/assets')
-        .use(Imagemin.jpegtran({max: 70, progressive: true}))
-        .use(Imagemin.optipng({optimizationLevel: 3}))
-        .run(function (err, files) {
-            console.log(files[0]);
-        });
+    return gulp.src('./src/assets/*.{gif,jpg,png,svg}')
+        .pipe(jpegtran({max: 70, progressive: true})())
+        .pipe(optipng({optimizationLevel: 3})())
+        .pipe(gifsicle({interlaced:true})())
+        .pipe(svgo()())
+        .pipe(gulp.dest('./dist/assets'));
 });
 
 gulp.task('assets-clean', function () {
