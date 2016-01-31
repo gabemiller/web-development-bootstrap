@@ -43,15 +43,18 @@ More info: http://bower.io/
 {
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-concat": "~2.5.2",
+    "gulp-concat": "^2.5.2",
     "gulp-connect": "^2.3.1",
     "gulp-jade": "^1.1.0",
     "gulp-prettify": "^0.4.0",
     "gulp-rimraf": "^0.2.0",
     "gulp-sass": "^2.1.1",
-    "gulp-uglify": "~1.1.0",
-    "imagemin": "^4.0.0"
-}
+    "gulp-uglify": "^1.1.0",
+    "imagemin-gifsicle": "^4.2.0",
+    "imagemin-jpegtran": "^4.3.2",
+    "imagemin-optipng": "^4.3.0",
+    "imagemin-svgo": "^4.2.0"
+  }
 ```
 
 ### Bower components
