@@ -17,10 +17,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rimraf = require('gulp-rimraf');
 var connect = require('gulp-connect');
-var gifsicle = require('imagemin-gifsicle');
-var jpegtran = require('imagemin-jpegtran');
-var optipng = require('imagemin-optipng');
-var svgo = require('imagemin-svgo');
+var imagemin = require('gulp-imagemin');
 
 /**
  * Gulp Task
@@ -30,7 +27,7 @@ var svgo = require('imagemin-svgo');
 gulp.task('scss', function() {
     gulp.src('./src/scss/app.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer('last 2 version', 'ie 9'))
+        .pipe(autoprefixer(['last 2 version', 'ie 10']))
         .pipe(gulp.dest('./dist/css'))
         .pipe(connect.reload());
 });
@@ -40,7 +37,7 @@ gulp.task('scss', function() {
  *
  * Get all the dependency js and concat them in vendor.js
  */
-gulp.task("vendor", function (callback) {
+gulp.task('vendor', function (callback) {
     gulp.src([
             // JQuery and plugins
             './bower_components/jquery/dist/jquery.js',
@@ -79,7 +76,7 @@ gulp.task("vendor", function (callback) {
  *
  * Minimazie app.js and copy it to src/app.js
  */
-gulp.task("scripts", function () {
+gulp.task('scripts', function () {
     gulp.src([
             './src/js/app.js'
         ])
@@ -91,24 +88,21 @@ gulp.task("scripts", function () {
 /**
  * Gulp Tasks
  *
- * Remove assets from dist/assets
- * Optimize assets in src/assets and copy them to dist/assets
+ * Remove images from dist/images
+ * Optimize images in src/images and copy them to dist/images
  */
-gulp.task('assets-optimize', function () {
-    return gulp.src('./src/assets/*.{gif,jpg,png,svg}')
-        .pipe(jpegtran({max: 70, progressive: true})())
-        .pipe(optipng({optimizationLevel: 3})())
-        .pipe(gifsicle({interlaced:true})())
-        .pipe(svgo()())
-        .pipe(gulp.dest('./dist/assets'));
+gulp.task('images-optimize', function () {
+    return gulp.src('./src/images/*.{gif,jpg,png,svg}')
+        .pipe(imagemin())
+        .pipe(gulp.dest('./dist/images'));
 });
 
-gulp.task('assets-clean', function () {
-    return gulp.src('./dist/assets/*.*', {read: false})
+gulp.task('images-clean', function () {
+    return gulp.src('./dist/images/*.*', {read: false})
         .pipe(rimraf());
 });
 
-gulp.task('assets', ['assets-clean', 'assets-optimize']);
+gulp.task('images', ['images-clean', 'images-optimize']);
 
 /**
  * Gulp Task
@@ -153,7 +147,7 @@ gulp.task('watch', function () {
     gulp.watch('src/js/*.js', ['scripts']);
     gulp.watch('src/views/**/*.jade', ['jade']);
     gulp.watch('src/scss/**/*.scss', ['scss']);
-    gulp.watch('src/assets/**/*.*', ['assets']);
+    gulp.watch('src/images/**/*.*', ['images']);
 });
 
 /**
@@ -161,4 +155,4 @@ gulp.task('watch', function () {
  *
  * Initialize all tasks and watchers.
  */
-gulp.task('init', ['jade', 'scss', 'vendor', 'scripts', 'assets','watch', 'webserver']);
+gulp.task('init', ['jade', 'scss', 'vendor', 'scripts', 'images','watch', 'webserver']);
