@@ -19,9 +19,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.9",
-    "bootstrap-sass": "~3.3.6",
-    "bootstrap-js-components": "~3.3.4",
-    "jquery": "~2.2.0"
+    "bootstrap-js-components": "^3.3.4",
+    "angular": "^1.5.8",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "^3.1.1"
   }
 }

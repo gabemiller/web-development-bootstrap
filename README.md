@@ -41,28 +41,25 @@ More info: http://bower.io/
 
 ```json
 {
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-concat": "^2.5.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.0",
     "gulp-connect": "^2.3.1",
+    "gulp-imagemin": "^3.0.3",
     "gulp-jade": "^1.1.0",
     "gulp-prettify": "^0.4.0",
     "gulp-rimraf": "^0.2.0",
-    "gulp-sass": "^2.1.1",
-    "gulp-uglify": "^1.1.0",
-    "imagemin-gifsicle": "^4.2.0",
-    "imagemin-jpegtran": "^4.3.2",
-    "imagemin-optipng": "^4.3.0",
-    "imagemin-svgo": "^4.2.0"
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^1.5.4"
   }
 ```
 
 ### Bower components
 ```json
 {
-    "angular": "~1.4.9",
-    "bootstrap-sass": "~3.3.6",
-    "bootstrap-js-components": "~3.3.4",
-    "jquery": "~2.2.0"
+    "bootstrap-js-components": "^3.3.4",
+    "angular": "^1.5.8",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "^3.1.1"
 }
 ```
