@@ -18,6 +18,8 @@ var uglify = require('gulp-uglify');
 var rimraf = require('gulp-rimraf');
 var connect = require('gulp-connect');
 var imagemin = require('gulp-imagemin');
+var webpack = require("webpack-stream");
+var sourcemaps = require('gulp-sourcemaps');
 
 /**
  * Gulp Task
@@ -67,22 +69,22 @@ gulp.task('vendor', function (callback) {
 
         ])
         .pipe(concat({path: 'vendor.js'}))
-        .pipe(uglify({}))
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist/scripts'));
 });
 
 /**
  * Gulp Task
  *
- * Minimazie app.js and copy it to src/app.js
+ * Generate dist/scripts/app.js from src/js/app.js
  */
-gulp.task('scripts', function () {
-    gulp.src([
-            './src/js/app.js'
-        ])
-        .pipe(uglify({}))
-        .pipe(gulp.dest('./dist/scripts'))
-        .pipe(connect.reload());
+gulp.task('webpack', function () {
+    var config = require('./webpack.config.js');
+    return gulp.src('./src/js/app.js')
+        .pipe(webpack(config))
+        .pipe(gulp.dest('./dist/scripts'));
 });
 
 /**
@@ -144,7 +146,7 @@ gulp.task('webserver', function() {
  *  Watch all gulp tasks.
  */
 gulp.task('watch', function () {
-    gulp.watch('src/js/*.js', ['scripts']);
+    gulp.watch('src/js/*.js', ['webpack']);
     gulp.watch('src/views/**/*.jade', ['jade']);
     gulp.watch('src/scss/**/*.scss', ['scss']);
     gulp.watch('src/images/**/*.*', ['images']);
@@ -155,4 +157,4 @@ gulp.task('watch', function () {
  *
  * Initialize all tasks and watchers.
  */
-gulp.task('init', ['jade', 'scss', 'vendor', 'scripts', 'images','watch', 'webserver']);
+gulp.task('init', ['jade', 'scss', 'vendor', 'webpack', 'images','watch', 'webserver']);

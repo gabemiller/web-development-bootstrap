@@ -41,6 +41,10 @@ More info: http://bower.io/
 
 ```json
 {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.0",
@@ -50,7 +54,9 @@ More info: http://bower.io/
     "gulp-prettify": "^0.4.0",
     "gulp-rimraf": "^0.2.0",
     "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^1.5.4"
+    "gulp-uglify": "^1.5.4",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
   }
 ```
 
