@@ -20,6 +20,8 @@ var connect = require('gulp-connect');
 var imagemin = require('gulp-imagemin');
 var webpack = require("webpack-stream");
 var sourcemaps = require('gulp-sourcemaps');
+var rename = require('gulp-rename');
+var cleanCss = require('gulp-clean-css');
 
 /**
  * Gulp Task
@@ -29,7 +31,11 @@ var sourcemaps = require('gulp-sourcemaps');
 gulp.task('scss', function() {
     gulp.src('./src/scss/app.scss')
         .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.init())
         .pipe(autoprefixer(['last 2 version', 'ie 10']))
+        .pipe(cleanCss())
+        .pipe(rename({suffix:'.min'}))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist/css'))
         .pipe(connect.reload());
 });
@@ -84,6 +90,9 @@ gulp.task('webpack', function () {
     var config = require('./webpack.config.js');
     return gulp.src('./src/js/app.js')
         .pipe(webpack(config))
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist/scripts'));
 });
 

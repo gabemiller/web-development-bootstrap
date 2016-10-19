@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 var webpackConfig = {
     output: {
         filename: "app.min.js"
@@ -11,14 +13,7 @@ var webpackConfig = {
                 exclude: /node_modules/
             }
         ]
-    },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
-    ]
+    }
 };
 
 module.exports = webpackConfig;
