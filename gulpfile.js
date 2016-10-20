@@ -24,6 +24,42 @@ var rename = require('gulp-rename');
 var cleanCss = require('gulp-clean-css');
 
 /**
+ *  Gulp config
+ */
+
+var path = {
+    scss : {
+        src : './src/scss/app.scss',
+        dest: './dist/css'
+    },
+    vendor : {
+        dest: './dist/scripts'
+    },
+    webpack : {
+        src : './src/js/app.js',
+        dest: './dist/scripts'
+    }
+};
+
+var fileName = {
+    scss : {
+        prefix: '',
+        basename : 'app',
+        suffix: '.min'
+    },
+    vendor : {
+        prefix: '',
+        basename : 'vendor',
+        suffix: '.min'
+    },
+    webpack : {
+        prefix: '',
+        basename : 'app',
+        suffix: '.min'
+    }
+};
+
+/**
  * Gulp Task
  *
  * Compile app.scss to app.css
@@ -34,7 +70,7 @@ gulp.task('scss', function() {
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(['last 2 version', 'ie 10']))
         .pipe(cleanCss())
-        .pipe(rename({suffix:'.min'}))
+        .pipe(rename(fileName.scss))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist/css'))
         .pipe(connect.reload());
@@ -77,6 +113,7 @@ gulp.task('vendor', function (callback) {
         .pipe(concat({path: 'vendor.js'}))
         .pipe(sourcemaps.init())
         .pipe(uglify())
+        .pipe(rename(fileName.vendor))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist/scripts'));
 });
@@ -92,6 +129,7 @@ gulp.task('webpack', function () {
         .pipe(webpack(config))
         .pipe(sourcemaps.init())
         .pipe(uglify())
+        .pipe(rename(fileName.webpack))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist/scripts'));
 });
