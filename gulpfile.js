@@ -10,7 +10,7 @@
  */
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var jade = require('gulp-jade');
+var pug = require('gulp-pug');
 var prettify = require('gulp-prettify');
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
@@ -38,6 +38,24 @@ var path = {
     webpack : {
         src : './src/js/app.js',
         dest: './dist/scripts'
+    },
+    image : {
+        src : './src/images/*.{gif,jpg,png,svg}',
+        dest: './dist/images',
+        rm  : './dist/images/*.{gif,jpg,png,svg}'
+    },
+    pug : {
+        src : './src/views/*.pug',
+        dest: './dist'
+    },
+    webserver : {
+        root: 'dist'
+    },
+    watch : {
+        webpack: 'src/js/*.js',
+        pug    : 'src/views/**/*.pug',
+        scss   : 'src/scss/**/*.scss',
+        images : 'src/images/**/*.{gif,jpg,png,svg}'
     }
 };
 
@@ -65,14 +83,14 @@ var fileName = {
  * Compile app.scss to app.css
  */
 gulp.task('scss', function() {
-    gulp.src('./src/scss/app.scss')
+    gulp.src(path.scss.src)
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(['last 2 version', 'ie 10']))
         .pipe(cleanCss())
         .pipe(rename(fileName.scss))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('./dist/css'))
+        .pipe(gulp.dest(path.scss.dest))
         .pipe(connect.reload());
 });
 
@@ -115,7 +133,7 @@ gulp.task('vendor', function (callback) {
         .pipe(uglify())
         .pipe(rename(fileName.vendor))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('./dist/scripts'));
+        .pipe(gulp.dest(path.vendor.dest));
 });
 
 /**
@@ -125,13 +143,13 @@ gulp.task('vendor', function (callback) {
  */
 gulp.task('webpack', function () {
     var config = require('./webpack.config.js');
-    return gulp.src('./src/js/app.js')
+    return gulp.src(path.webpack.src)
         .pipe(webpack(config))
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename(fileName.webpack))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('./dist/scripts'));
+        .pipe(gulp.dest(path.webpack.dest));
 });
 
 /**
@@ -141,26 +159,26 @@ gulp.task('webpack', function () {
  * Optimize images in src/images and copy them to dist/images
  */
 gulp.task('images-optimize', function () {
-    return gulp.src('./src/images/*.{gif,jpg,png,svg}')
+    return gulp.src(path.image.src)
         .pipe(imagemin())
-        .pipe(gulp.dest('./dist/images'));
+        .pipe(gulp.dest(path.image.dest));
 });
 
-gulp.task('images-clean', function () {
-    return gulp.src('./dist/images/*.*', {read: false})
+gulp.task('images-remove', function () {
+    return gulp.src(path.image.rm, {read: false})
         .pipe(rimraf());
 });
 
-gulp.task('images', ['images-clean', 'images-optimize']);
+gulp.task('images', ['images-remove', 'images-optimize']);
 
 /**
  * Gulp Task
  *
- * Compile jade to html
+ * Compile pug to html
  */
-gulp.task('jade', function () {
-    gulp.src(['./src/views/*.jade'])
-        .pipe(jade({
+gulp.task('pug', function () {
+    gulp.src([path.pug.src])
+        .pipe(pug({
             pretty: false
         }))
         .pipe(prettify({
@@ -169,7 +187,7 @@ gulp.task('jade', function () {
             indegulnt_size: 2,
             brace_style: 'expand'
         }))
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest(path.pug.dest))
         .pipe(connect.reload());
 });
 
@@ -181,7 +199,7 @@ gulp.task('jade', function () {
  */
 gulp.task('webserver', function() {
     connect.server({
-        root: 'dist',
+        root: path.webserver.root,
         livereload: true,
         port: 8001
     });
@@ -193,10 +211,10 @@ gulp.task('webserver', function() {
  *  Watch all gulp tasks.
  */
 gulp.task('watch', function () {
-    gulp.watch('src/js/*.js', ['webpack']);
-    gulp.watch('src/views/**/*.jade', ['jade']);
-    gulp.watch('src/scss/**/*.scss', ['scss']);
-    gulp.watch('src/images/**/*.*', ['images']);
+    gulp.watch(path.watch.webpack, ['webpack']);
+    gulp.watch(path.watch.pug, ['pug']);
+    gulp.watch(path.watch.scss, ['scss']);
+    gulp.watch(path.watch.images, ['images']);
 });
 
 /**
@@ -204,4 +222,4 @@ gulp.task('watch', function () {
  *
  * Initialize all tasks and watchers.
  */
-gulp.task('init', ['jade', 'scss', 'vendor', 'webpack', 'images','watch', 'webserver']);
+gulp.task('init', ['pug', 'scss', 'vendor', 'webpack', 'images','watch', 'webserver']);
