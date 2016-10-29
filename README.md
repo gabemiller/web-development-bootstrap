@@ -1,7 +1,7 @@
 # Web development bootstrap
 
-This is a skeleton, boilerplate, bootstrap or call you what you want project.
-It is created for adding boost for web development and giving you fresh, quick start.
+I created this small project to start web development a little bit easier. 
+This project gives us really useful dependencies and ready-to-work configuration out of the box.
 
 ## How to use
 
@@ -34,6 +34,7 @@ More info: http://bower.io/
     npm install --save-dev [package-name]
     bower install [--save] [package-name]
     ```
+7. Create something marvelous & have fun!
 
 ## What does it have
 
@@ -50,7 +51,9 @@ More info: http://bower.io/
     "gulp-clean-css": "^2.0.13",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^2.3.1",
+    "gulp-google-webfonts": "0.0.14",
     "gulp-imagemin": "^3.0.3",
+    "gulp-modify-css-urls": "^0.2.2",
     "gulp-prettify": "^0.4.0",
     "gulp-pug": "^3.1.0",
     "gulp-rename": "^1.2.2",
@@ -74,3 +77,14 @@ More info: http://bower.io/
     "jquery": "^3.1.1"
 }
 ```
+
+## Learn more
+
+If you do not know one of these. Here you can learn more about them:
+
+- [Babel](https://babeljs.io/)
+- [Gulp](http://gulpjs.com/)
+- [Sass](http://sass-lang.com/)
+- [Pug](https://pugjs.org)
+- [Google Fonts](https://fonts.google.com/)
+- [Webpack](https://webpack.github.io/)
