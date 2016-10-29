@@ -22,6 +22,8 @@ var webpack = require("webpack-stream");
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 var cleanCss = require('gulp-clean-css');
+var googleWebFonts = require('gulp-google-webfonts');
+var modifyCssUrls = require('gulp-modify-css-urls');
 
 /**
  *  Gulp config
@@ -36,7 +38,7 @@ var fileName = require('./gulp.config').fileName;
  * Compile app.scss to app.css
  */
 gulp.task('scss', function() {
-    gulp.src(path.scss.src)
+    return gulp.src(path.scss.src)
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(['last 2 version', 'ie 10']))
@@ -47,13 +49,41 @@ gulp.task('scss', function() {
         .pipe(connect.reload());
 });
 
+
+/**
+ * Gulp Task
+ *
+ * Download and create css for google fonts
+ *
+ */
+
+gulp.task('google-fonts', function () {
+    var config = require('./gulp.config').googleFontsConfig;
+    return gulp.src(path.googleFonts.src)
+        .pipe(googleWebFonts(config))
+        .pipe(gulp.dest(path.googleFonts.dest));
+});
+
+gulp.task('fonts-url-fix',['google-fonts'],function () {
+    return gulp.src('./src/scss/base/_fonts.scss')
+        .pipe(modifyCssUrls({
+            modify: function (url, filePath) {
+                return url;
+            },
+            prepend: '../'
+        }))
+        .pipe(gulp.dest('./src/scss/base/'));
+});
+
+gulp.task('fonts',['google-fonts','fonts-url-fix']);
+
 /**
  * Gulp Task
  *
  * Get all the dependency js and concat them in vendor.js
  */
 gulp.task('vendor', function (callback) {
-    gulp.src([
+    return gulp.src([
             // JQuery and plugins
             './bower_components/jquery/dist/jquery.js',
 
@@ -143,7 +173,6 @@ gulp.task('pug', function () {
         .pipe(gulp.dest(path.pug.dest))
         .pipe(connect.reload());
 });
-
 
 /**
  * Gulp Server

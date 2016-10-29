@@ -3,10 +3,17 @@
  */
 
 var gulpConfig = {
+    /**
+     * File paths
+     */
     path : {
         scss : {
             src : './src/scss/app.scss',
             dest: './dist/css'
+        },
+        googleFonts : {
+            src : './src/fonts/fonts.list',
+            dest: './dist'
         },
         vendor : {
             dest: './dist/scripts'
@@ -34,6 +41,9 @@ var gulpConfig = {
             images : 'src/images/**/*.{gif,jpg,png,svg}'
         }
     },
+    /**
+     * Output filenames
+     */
     fileName : {
         scss : {
             prefix: '',
@@ -50,6 +60,16 @@ var gulpConfig = {
             basename : 'app',
             suffix: '.min'
         }
+    },
+    /**
+     * Google fonts
+     *
+     * FontsDir and cssDir are relative to gulp.dest path.
+     */
+    googleFontsConfig : {
+        fontsDir: './fonts',
+        cssDir: '../src/scss/base',
+        cssFilename: '_fonts.scss'
     }
 };
 
