@@ -14,7 +14,8 @@ var gulpConfig = {
         },
         googleFonts : {
             src : './src/fonts/fonts.list',
-            dest: './dist'
+            dest: './dist',
+            rm  : './dist/fonts'
         },
         vendor : {
             dest: './dist/scripts'

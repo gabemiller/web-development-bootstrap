@@ -58,7 +58,12 @@ gulp.task('scss', function() {
  *
  */
 
-gulp.task('google-fonts', function () {
+gulp.task('fonts-clear',function () {
+   return gulp.src(path.googleFonts.rm, {read: false})
+       .pipe(rimraf());
+});
+
+gulp.task('google-fonts',['fonts-clear'], function () {
     var config = require('./gulp.config').googleFontsConfig;
     return gulp.src(path.googleFonts.src)
         .pipe(googleWebFonts(config))
@@ -76,7 +81,7 @@ gulp.task('fonts-url-fix',['google-fonts'],function () {
         .pipe(gulp.dest('./src/scss/base/'));
 });
 
-gulp.task('fonts',['google-fonts','fonts-url-fix']);
+gulp.task('fonts',['fonts-url-fix']);
 
 /**
  * Gulp Task
