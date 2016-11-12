@@ -1,5 +1,6 @@
 /**
- * Created by Gábor on 2016. 10. 26..
+ * Created by Gabor Molnar
+ * 2016. 10. 26..
  */
 
 var gulpConfig = {

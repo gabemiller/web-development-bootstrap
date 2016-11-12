@@ -31,6 +31,7 @@ var modifyCssUrls = require('gulp-modify-css-urls');
 
 var path = require('./gulp.config').path;
 var fileName = require('./gulp.config').fileName;
+var webpackConfig = require('./webpack.config.js');
 
 /**
  * Gulp Task
@@ -122,12 +123,11 @@ gulp.task('vendor', function (callback) {
 /**
  * Gulp Task
  *
- * Generate dist/scripts/app.js from src/js/app.js
+ * Generate app.js
  */
 gulp.task('webpack', function () {
-    var config = require('./webpack.config.js');
     return gulp.src(path.webpack.src)
-        .pipe(webpack(config))
+        .pipe(webpack(webpackConfig))
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename(fileName.webpack))
@@ -138,8 +138,8 @@ gulp.task('webpack', function () {
 /**
  * Gulp Tasks
  *
- * Remove images from dist/images
- * Optimize images in src/images and copy them to dist/images
+ * Remove images from dist
+ * Optimize images and copy them to dist
  */
 gulp.task('images-optimize', function () {
     return gulp.src(path.image.src)
