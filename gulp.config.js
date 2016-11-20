@@ -12,6 +12,10 @@ var gulpConfig = {
             src : './src/scss/app.scss',
             dest: './dist/css'
         },
+        less : {
+            src : './src/less/app.less',
+            dest: './dist/css'
+        },
         googleFonts : {
             src : './src/fonts/fonts.list',
             dest: './dist',
@@ -40,6 +44,7 @@ var gulpConfig = {
             webpack: 'src/js/*.js',
             pug    : 'src/views/**/*.pug',
             scss   : 'src/scss/**/*.scss',
+            less   : 'src/less/**/*.less',
             images : 'src/images/**/*.{gif,jpg,png,svg}'
         }
     },
@@ -48,6 +53,11 @@ var gulpConfig = {
      */
     fileName : {
         scss : {
+            prefix: '',
+            basename : 'app',
+            suffix: '.min'
+        },
+        less : {
             prefix: '',
             basename : 'app',
             suffix: '.min'

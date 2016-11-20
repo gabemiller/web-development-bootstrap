@@ -10,6 +10,7 @@
  */
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var less = require('gulp-less');
 var pug = require('gulp-pug');
 var prettify = require('gulp-prettify');
 var autoprefixer = require('gulp-autoprefixer');
@@ -32,6 +33,23 @@ var modifyCssUrls = require('gulp-modify-css-urls');
 var path = require('./gulp.config').path;
 var fileName = require('./gulp.config').fileName;
 var webpackConfig = require('./webpack.config.js');
+
+/**
+ * Gulp Task
+ *
+ * Compile app.less to app.css
+ */
+gulp.task('less', function() {
+    return gulp.src(path.less.src)
+        .pipe(less())
+        .pipe(sourcemaps.init())
+        .pipe(autoprefixer(['last 2 version', 'ie 10']))
+        .pipe(cleanCss())
+        .pipe(rename(fileName.less))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(path.less.dest))
+        .pipe(connect.reload());
+});
 
 /**
  * Gulp Task
@@ -201,6 +219,7 @@ gulp.task('watch', function () {
     gulp.watch(path.watch.webpack, ['webpack']);
     gulp.watch(path.watch.pug, ['pug']);
     gulp.watch(path.watch.scss, ['scss']);
+    gulp.watch(path.watch.less, ['less']);
     gulp.watch(path.watch.images, ['images']);
 });
 
@@ -209,4 +228,6 @@ gulp.task('watch', function () {
  *
  * Initialize all tasks and watchers.
  */
-gulp.task('init', ['pug', 'scss', 'vendor', 'webpack', 'images','watch', 'webserver']);
+gulp.task('init-scss', ['pug', 'scss', 'vendor', 'webpack', 'images','watch', 'webserver']);
+
+gulp.task('init-less', ['pug', 'less', 'vendor', 'webpack', 'images','watch', 'webserver']);
