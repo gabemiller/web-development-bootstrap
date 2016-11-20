@@ -79,7 +79,8 @@ More info: http://bower.io/
     "bootstrap-js-components": "^3.3.4",
     "angular": "^1.5.8",
     "bootstrap-sass": "^3.3.7",
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
 }
 ```
 
