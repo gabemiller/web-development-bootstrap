@@ -25,8 +25,9 @@ var gulpConfig = {
             dest: './dist/scripts'
         },
         webpack : {
-            src : './src/js/app.js',
-            dest: './dist/scripts'
+            app    : './src/js/app.js',
+            vendor : './src/js/vendor.js',
+            dest   : './dist/scripts'
         },
         image : {
             src : './src/images/*.{gif,jpg,png,svg}',
@@ -58,16 +59,6 @@ var gulpConfig = {
             suffix: '.min'
         },
         less : {
-            prefix: '',
-            basename : 'app',
-            suffix: '.min'
-        },
-        vendor : {
-            prefix: '',
-            basename : 'vendor',
-            suffix: '.min'
-        },
-        webpack : {
             prefix: '',
             basename : 'app',
             suffix: '.min'

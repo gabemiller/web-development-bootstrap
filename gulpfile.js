@@ -25,6 +25,7 @@ var rename = require('gulp-rename');
 var cleanCss = require('gulp-clean-css');
 var googleWebFonts = require('gulp-google-webfonts');
 var modifyCssUrls = require('gulp-modify-css-urls');
+var named = require('vinyl-named');
 
 /**
  *  Gulp config
@@ -104,57 +105,15 @@ gulp.task('fonts',['fonts-url-fix']);
 /**
  * Gulp Task
  *
- * Get all the dependency js and concat them in vendor.js
- */
-gulp.task('vendor', function (callback) {
-    return gulp.src([
-            // JQuery and plugins
-            './bower_components/jquery/dist/jquery.js',
-
-            // jQuery UI components
-            // './bower_components/jquery.ui/ui/datepicker.js',
-            // './bower_components/jquery.ui/ui/core.js',
-            // './bower_components/jquery.ui/ui/widget.js',
-            // './bower_components/jquery.ui/ui/mouse.js',
-            // './bower_components/jquery.ui/ui/position.js',
-            // './bower_components/jquery.ui/ui/menu.js',
-            // './bower_components/jquery.ui/ui/autocomplete.js',
-            // './bower_components/jquery.ui/ui/slider.js',
-
-            // Bootstrap components
-            // './bower_components/bootstrap-js-components/dist/alert.js',
-            // './bower_components/bootstrap-js-components/dist/collapse.js',
-            // './bower_components/bootstrap-js-components/dist/dropdown.js',
-            // './bower_components/bootstrap-js-components/dist/transition.js',
-            // './bower_components/bootstrap-js-components/dist/modal.js',
-            // './bower_components/bootstrap-js-components/dist/tab.js',
-            // './bower_components/bootstrap-js-components/dist/tooltip.js',
-            // './bower_components/bootstrap-js-components/dist/popover.js',
-            // './bower_components/bootstrap-js-components/dist/scrollspy.js',
-            // './bower_components/bootstrap-js-components/dist/dropdown.js',
-            // './bower_components/bootstrap-js-components/dist/affix.js',
-
-        ])
-        .pipe(concat({path: 'vendor.js'}))
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(rename(fileName.vendor))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(path.vendor.dest));
-});
-
-/**
- * Gulp Task
- *
  * Generate app.js
  */
 gulp.task('webpack', function () {
-    return gulp.src(path.webpack.src)
+    return gulp.src([
+            path.webpack.vendor,
+            path.webpack.app
+        ])
+        .pipe(named())
         .pipe(webpack(webpackConfig))
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(rename(fileName.webpack))
-        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(path.webpack.dest));
 });
 
@@ -228,6 +187,6 @@ gulp.task('watch', function () {
  *
  * Initialize all tasks and watchers.
  */
-gulp.task('init-scss', ['pug', 'scss', 'vendor', 'webpack', 'images','watch', 'webserver']);
+gulp.task('init-scss', ['pug', 'scss', 'webpack', 'images','watch', 'webserver']);
 
-gulp.task('init-less', ['pug', 'less', 'vendor', 'webpack', 'images','watch', 'webserver']);
+gulp.task('init-less', ['pug', 'less', 'webpack', 'images','watch', 'webserver']);
